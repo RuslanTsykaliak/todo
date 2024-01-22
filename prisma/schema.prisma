@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Todo {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String?
+  completed   Boolean  @default(false)
+  priority    String
+  createdAt   DateTime @default(now())
+}
+
+// To filter tasks by status
+enum TodoStatus {
+  ALL
+  DONE
+  UNDONE
+}
+
+// To sort tasks by priority in ascending or descending order
+enum SortTodos {
+  ASC
+  DESC
+}
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  image       String
+  category    String
+  userid      String
+  userimage   String
+  comments    String[]
+}

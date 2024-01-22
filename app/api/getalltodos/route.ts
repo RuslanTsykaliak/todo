@@ -1,0 +1,30 @@
+// /pages/api/getalltodos/route.ts
+
+import { NextRequest, NextResponse} from 'next/server';
+import { prisma } from '@/lib/db';
+
+export async function GET(request: NextRequest) {
+  try {
+    const getAllTodos = await prisma.todo.findMany();
+    if (getAllTodos && getAllTodos.length) {
+      return NextResponse.json({
+        success: true,
+        data: getAllTodos,
+      });
+    } else {
+      return NextResponse.json({
+        success: false,
+        message: "Failed to fetch todos. Please try again",
+      });
+    }
+  } 
+  // finally {}
+  catch (e) {
+    console.log(e);
+
+    return NextResponse.json({
+      success: false,
+      message: "Something went wrong ! Please try again",
+    });
+  }
+}
