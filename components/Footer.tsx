@@ -3,10 +3,10 @@ import React from 'react';
 function Footer() {
 
   return (
-    <footer className="bg-gray-200 p-4 text-center">
-      <p className="text-gray-600">© {new Date().getFullYear()} Your Todo App. All rights reserved.</p>
-    
+    <footer className="bg-gray-200 dark:bg-gray-800 p-4 text-center dark:text-white">
+      <p className="text-gray-600 dark:text-gray-300">© {new Date().getFullYear()} Your Todo App. All rights reserved.</p>
     </footer>
+
   );
 }
 

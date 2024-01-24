@@ -1,28 +1,28 @@
 import React from "react";
-import AddTodo from "./AddTodo";
-import { ThemeProvider } from "./ThemeProvider";
+import NextThemeProvider from "./ThemeProvider";
 import ThemeSwitch from "./ThemeSwitch";
 import Link from "next/link";
-import Search from "./SearchComponent";
+
 
 function Header() {
   return (
-    <div className="bg-gray-800 p-4 text-white">
+    <div className="bg-gray-800 p-4 text-white dark:bg-gray-700 dark:text-white">
+      <link rel="manifest" href="/manifest.json" />
       <div className="container mx-auto flex justify-between items-center">
-        <div className="flex flex-col">
-          {/* <ThemeProvider> */}
-          {/* <ThemeSwitch /> */}
-          {/* </ThemeProvider> */}
+        <div className="flex items-center flex-grow">
+          <NextThemeProvider>
+            <ThemeSwitch />
+          </NextThemeProvider>
         </div>
         <h1 className="text-2xl font-bold">
-          <Link href={`/`}>Todo App</Link>
+          <Link href={`/`}>Todo List</Link>
         </h1>
-        <div className="flex flex-col items-center">
-          {/* <AddTodo /> */}
-          <Link href={`/add`}>AddTood</Link>
+        <div className="flex items-center flex-grow justify-end">
+          <Link href={`/add`} className="dark:hover:text-gray-300">
+            Add Todo
+          </Link>
         </div>
       </div>
-      {/* <Search /> */}
     </div>
   );
 }

@@ -1,7 +1,9 @@
+// components/ThemeSwitch.tsx
+
 "use client"
 
-import { useTheme } from 'next-themes';
-import { BsMoon, BsSun } from 'react-icons/bs';
+import { useTheme } from "next-themes";
+import { BsMoon, BsSun } from "react-icons/bs";
 
 const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();

@@ -35,12 +35,11 @@ const Completed: React.FC<CompletedProps> = ({ todoId, completed, onToggleComple
 
   return (
     <button
-      className={`text-white fodnt-bol py-2 px-4 rounded ${
-        !completed ? 
-        'bg-red-500'
-        : 
-        'bg-green-500' 
-      }`}
+      className={`text-white font-bold py-2 px-4 rounded ${!completed ?
+        'bg-red-500 dark:bg-red-800'
+        :
+        'bg-green-500 dark:bg-green-800'
+        }`}
       onClick={() => toggleCompletion(!completed)}
       disabled={loading}
     >

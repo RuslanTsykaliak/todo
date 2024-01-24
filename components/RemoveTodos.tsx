@@ -21,12 +21,10 @@ const RemoveTodos: React.FC<RemoveTodosProps> = (
       });
 
       if (response.ok) {
-        // Successful, update your state or UI accordingly
         console.log("Todo removed successfully");
-        onRemoveSuccess(); // Invoke the callback
+        onRemoveSuccess();
         
       } else {
-        // Failed, handle the error
         const errorData = await response.json();
         console.error(`Failed to remove todo: ${errorData.message}`);
       }
