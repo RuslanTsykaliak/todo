@@ -1,20 +1,15 @@
+// add/page.tsx
+
 "use client"
-
-
-import { Form } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast'
 
-
 export default function AddTodo() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState<number>(""); // (1)
+  const [priority, setPriority] = useState<number>(1); // (1)
 
   const router = useRouter();
 
@@ -28,9 +23,9 @@ export default function AddTodo() {
     }
 
     try {
-      console.log("Submitting form...")
+      console.log("Submitting form...");
 
-      const res = await fetch("api/add/", {
+      const res = await fetch("/api/add", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -42,7 +37,7 @@ export default function AddTodo() {
         }),
       });
 
-      console.log("Response from API:", res)
+      console.log("Response from API:", res);
 
       if (res.ok) {
         toast.success("Post created successfully");
@@ -57,9 +52,7 @@ export default function AddTodo() {
 
   return (
     <div className="container mx-auto my-8">
-      <form
-        onSubmit={handleSubmit}
-      >
+      <form onSubmit={handleSubmit}>
         <label className="block mb-4">
           Title:
           <input
@@ -84,7 +77,7 @@ export default function AddTodo() {
           <select
             name="priority"
             value={priority}
-            onChange={(e) => setPriority(e.target.value)}
+            onChange={(e) => setPriority(parseInt(e.target.value, 10))}
             className="w-full mt-2 p-2 border rounded"
           >
             {[...Array(10).keys()].map((number) => (

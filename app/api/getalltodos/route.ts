@@ -1,4 +1,4 @@
-// /pages/api/getalltodos/route.ts
+// api/getalltodos/route.ts
 
 import { NextRequest, NextResponse} from 'next/server';
 import { prisma } from '@/lib/db';
@@ -17,9 +17,7 @@ export async function GET(request: NextRequest) {
         message: "Failed to fetch todos. Please try again",
       });
     }
-  } 
-  // finally {}
-  catch (e) {
+  } catch (e) {
     console.log(e);
 
     return NextResponse.json({
