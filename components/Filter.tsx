@@ -15,7 +15,7 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
 
   return (
     <div className="mb-4">
-      <label className="mr-2">Filter:</label>
+      <label className="mr-2 text-xl">Filter:</label>
       <select
         value={selectedFilter}
         onChange={(e) => setSelectedFilter(e.target.value)}
@@ -25,7 +25,7 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
         <option value="done">Done</option>
         <option value="undone">Undone</option>
         <option value="priority-high">Priority High</option>
-        <option value="priority-low">Priority Low</option>
+        <option value="priority-low">Priority High</option>
         <option value="newest">Newest</option>
         <option value="oldest">Oldest</option>
       </select>
