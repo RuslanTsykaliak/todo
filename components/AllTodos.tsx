@@ -16,21 +16,28 @@ const AllTodos: React.FC = () => {
   const [removedTodos, setRemovedTodos] = useState<number[]>([]);
   const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [editedTodos, setEditedTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
     const fetchTodos = async () => {
       try {
         const response = await fetch("api/getalltodos");
         const allTodos = await response.json();
-        setTodos(allTodos.data || []);
-        setFilteredTodos(allTodos.data || []);
+
+        const updatedTodos = allTodos.data.map((todo: Todo) => {
+          const editedTodo = editedTodos.find((edited: Todo) => edited.id === todo.id);
+          return editedTodo || todo;
+        });
+
+        setTodos(updatedTodos);
+        setFilteredTodos(updatedTodos);
       } catch (error) {
         console.error("Error fetching todos:", error);
       }
     };
 
     fetchTodos();
-  }, []);
+  }, [editedTodos]);
 
   const handleRemoveSuccess = (removedTodoId: number) => {
     setRemovedTodos((prevRemovedTodos) => [...prevRemovedTodos, removedTodoId]);
@@ -72,11 +79,8 @@ const AllTodos: React.FC = () => {
   }, [todos]);
 
   const handleEditSuccess = (updatedTodo: Todo) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((t) => (t.id === updatedTodo.id ? updatedTodo : t))
-    );
-    setFilteredTodos((prevFilteredTodos) =>
-      prevFilteredTodos.map((t) => (t.id === updatedTodo.id ? updatedTodo : t))
+    setEditedTodos((prevEditedTodos: Todo[]) =>
+      prevEditedTodos.map((t: Todo) => (t.id === updatedTodo.id ? updatedTodo : t))
     );
   };
 
