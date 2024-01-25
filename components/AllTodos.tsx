@@ -78,7 +78,7 @@ const AllTodos: React.FC = () => {
     }
   }, [todos]);
   
-  const handleEdit = (editedTodo: Todo) => {
+  const handleEditSuccess = (editedTodo: Todo) => {
     setEditedTodos((prevEditedTodos) => [...prevEditedTodos, editedTodo]);
   };
 
@@ -123,7 +123,7 @@ const AllTodos: React.FC = () => {
                 <div className="text-blue-500 hover:underline">
                   <Edit
                     todo={todo}
-                    onEdit={handleEdit}
+                    onEdit={handleEditSuccess}
                   />
                 </div>
 
