@@ -2,7 +2,7 @@
 
 'use client'
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
 import { Todo } from "@/lib/types";
@@ -18,6 +18,12 @@ const Edit: React.FC<EditProps> = ({ todo, onEditSuccess }) => {
   const [editedTitle, setEditedTitle] = useState(todo.title);
   const [editedDescription, setEditedDescription] = useState(todo.description);
   const [editedPriority, setEditedPriority] = useState(todo.priority);
+  
+  useEffect(() => {
+    setEditedTitle(todo.title);
+    setEditedDescription(todo.description);
+    setEditedPriority(todo.priority);
+  }, [todo]);
 
   const handleEdit = async () => {
     const priorityAsInt = parseInt(editedPriority, 10);
