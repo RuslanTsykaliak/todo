@@ -78,11 +78,12 @@ const AllTodos: React.FC = () => {
     }
   }, [todos]);
 
-  const handleEditSuccess = (updatedTodo: Todo) => {
-    setEditedTodos((prevEditedTodos: Todo[]) =>
-      prevEditedTodos.map((t: Todo) => (t.id === updatedTodo.id ? updatedTodo : t))
-    );
-  };
+const handleEditSuccess = (updatedTodo: Todo) => {
+  setEditedTodos([]); // Reset editedTodos after successful edit
+  setTodos((prevTodos) =>
+    prevTodos.map((t: Todo) => (t.id === updatedTodo.id ? updatedTodo : t))
+  );
+};
 
   return (
     <div className="container mx-auto my-4 p-8 rounded-lg shadow-lg dark:bg-gray-800 dark:text-white bg-gray-100 text-black">
