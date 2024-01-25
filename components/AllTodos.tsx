@@ -3,6 +3,7 @@
 //components/AllTodos.tsx
 
 import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/router";
 
 import { Todo } from "@/lib/types"
 import RemoveTodos from './RemoveTodos';
@@ -17,6 +18,7 @@ const AllTodos: React.FC = () => {
   const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [editedTodos, setEditedTodos] = useState<Todo[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -38,6 +40,13 @@ const AllTodos: React.FC = () => {
 
     fetchTodos();
   }, [editedTodos]);
+
+    useEffect(() => {
+    const { edited } = router.query;
+    if (edited) {
+      setEditedTodos((prevEditedTodos) => [...prevEditedTodos, JSON.parse(edited as string)]);
+    }
+  }, [router.query]);
 
   const handleRemoveSuccess = (removedTodoId: number) => {
     setRemovedTodos((prevRemovedTodos) => [...prevRemovedTodos, removedTodoId]);
@@ -77,11 +86,17 @@ const AllTodos: React.FC = () => {
         setFilteredTodos(todos);
     }
   }, [todos]);
+  
 const handleEditSuccess = (updatedTodo: Todo) => {
-  setTodos(prevTodos =>
-    prevTodos.map(t => (t.id === updatedTodo.id ? updatedTodo : t))
-  );
-};
+    setTodos((prevTodos) =>
+      prevTodos.map((t) => (t.id === updatedTodo.id ? updatedTodo : t))
+    );
+
+    // Save the edited todo to local storage
+    const updatedEditedTodos = editedTodos.filter((todo) => todo.id !== updatedTodo.id);
+    setEditedTodos([...updatedEditedTodos, updatedTodo]);
+    localStorage.setItem("editedTodos", JSON.stringify([...updatedEditedTodos, updatedTodo]));
+  };
 
   return (
     <div className="container mx-auto my-4 p-8 rounded-lg shadow-lg dark:bg-gray-800 dark:text-white bg-gray-100 text-black">
