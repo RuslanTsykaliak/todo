@@ -45,7 +45,7 @@ Toggle between dark and light modes for a personalized experience.
 
 ## Getting Started
 
-To run the development server, use the following command:
+Before running the development server, set up the database details in the `.env` file. After configuring the database, use the following command:
 
 ```bash
 npm run dev
