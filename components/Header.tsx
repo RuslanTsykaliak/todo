@@ -14,11 +14,11 @@ function Header() {
             <ThemeSwitch />
           </NextThemeProvider>
         </div>
-        <h1 className="text-2xl font-bold">
+        <h1 className="text-2xl font-extrabold uppercase">
           <Link href={`/`}>Todo List</Link>
         </h1>
         <div className="flex items-center flex-grow justify-end">
-          <Link href={`/add`} className="dark:hover:text-gray-300">
+          <Link href={`/add`} className="dark:hover:text-gray-300 uppercase">
             Add Todo
           </Link>
         </div>

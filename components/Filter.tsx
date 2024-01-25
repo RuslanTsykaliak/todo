@@ -1,3 +1,5 @@
+'use client'
+
 // components/Filter.tsx
 
 import { useState, useEffect } from "react";
@@ -15,7 +17,7 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
 
   return (
     <div className="mb-4">
-      <label className="mr-2 text-xl">Filter:</label>
+      <label className="mr-2 text-xl uppercase">Filter:</label>
       <select
         value={selectedFilter}
         onChange={(e) => setSelectedFilter(e.target.value)}
