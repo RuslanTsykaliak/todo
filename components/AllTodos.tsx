@@ -21,7 +21,9 @@ const AllTodos: React.FC = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await fetch("api/getalltodos");
+        const response = await fetch("api/getalltodos", {
+        cache: "no-store",
+      });
         const allTodos = await response.json();
 
         const updatedTodos = allTodos.data.map((todo: Todo) => {
