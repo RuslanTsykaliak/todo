@@ -3,6 +3,7 @@
 'use client'
 
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 import { Todo } from "@/lib/types";
 import { Button } from "./ui/button";
@@ -39,6 +40,7 @@ const Edit: React.FC<EditProps> = ({ todo, onEditSuccess }) => {
         const updatedTodo = await response.json();
         onEditSuccess(updatedTodo);
         setIsEditing(false);
+        toast.success("Todo updated successfully");
       } else {
         console.error("Failed to update todo:", response.status);
       }
