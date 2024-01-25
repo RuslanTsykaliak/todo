@@ -77,11 +77,10 @@ const AllTodos: React.FC = () => {
         setFilteredTodos(todos);
     }
   }, [todos]);
-const handleEditSuccess = (updatedTodo: Todo) => {
-  setTodos(prevTodos =>
-    prevTodos.map(t => (t.id === updatedTodo.id ? updatedTodo : t))
-  );
-};
+  
+  const handleEdit = (editedTodo: Todo) => {
+    setEditedTodos((prevEditedTodos) => [...prevEditedTodos, editedTodo]);
+  };
 
   return (
     <div className="container mx-auto my-4 p-8 rounded-lg shadow-lg dark:bg-gray-800 dark:text-white bg-gray-100 text-black">
@@ -124,7 +123,7 @@ const handleEditSuccess = (updatedTodo: Todo) => {
                 <div className="text-blue-500 hover:underline">
                   <Edit
                     todo={todo}
-                    onEditSuccess={handleEditSuccess}
+                    onEdit={handleEdit}
                   />
                 </div>
 
