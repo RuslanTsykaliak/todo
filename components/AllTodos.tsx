@@ -3,7 +3,7 @@
 //components/AllTodos.tsx
 
 import { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/router";
+
 
 import { Todo } from "@/lib/types"
 import RemoveTodos from './RemoveTodos';
@@ -17,36 +17,21 @@ const AllTodos: React.FC = () => {
   const [removedTodos, setRemovedTodos] = useState<number[]>([]);
   const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
-  const [editedTodos, setEditedTodos] = useState<Todo[]>([]);
-  const router = useRouter();
 
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await fetch("api/getalltodos");
+        const response = await fetch("/api/getalltodos");
         const allTodos = await response.json();
-
-        const updatedTodos = allTodos.data.map((todo: Todo) => {
-          const editedTodo = editedTodos.find((edited: Todo) => edited.id === todo.id);
-          return editedTodo || todo;
-        });
-
-        setTodos(updatedTodos);
-        setFilteredTodos(updatedTodos);
+        setTodos(allTodos);
+        setFilteredTodos(allTodos);
       } catch (error) {
         console.error("Error fetching todos:", error);
       }
     };
 
     fetchTodos();
-  }, [editedTodos]);
-
-    useEffect(() => {
-    const { edited } = router.query;
-    if (edited) {
-      setEditedTodos((prevEditedTodos) => [...prevEditedTodos, JSON.parse(edited as string)]);
-    }
-  }, [router.query]);
+  }, []);
 
   const handleRemoveSuccess = (removedTodoId: number) => {
     setRemovedTodos((prevRemovedTodos) => [...prevRemovedTodos, removedTodoId]);
@@ -55,7 +40,9 @@ const AllTodos: React.FC = () => {
     );
   };
 
-  const displayedTodos = isSearching ? filteredTodos : todos.filter((todo) => !removedTodos.includes(todo.id));
+  const displayedTodos = isSearching
+    ? filteredTodos
+    : todos.filter((todo) => !removedTodos.includes(todo.id));
 
   const handleSearch = (filteredTodos: Todo[]) => {
     setFilteredTodos(filteredTodos);
@@ -86,17 +73,7 @@ const AllTodos: React.FC = () => {
         setFilteredTodos(todos);
     }
   }, [todos]);
-  
-const handleEditSuccess = (updatedTodo: Todo) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((t) => (t.id === updatedTodo.id ? updatedTodo : t))
-    );
 
-    // Save the edited todo to local storage
-    const updatedEditedTodos = editedTodos.filter((todo) => todo.id !== updatedTodo.id);
-    setEditedTodos([...updatedEditedTodos, updatedTodo]);
-    localStorage.setItem("editedTodos", JSON.stringify([...updatedEditedTodos, updatedTodo]));
-  };
 
   return (
     <div className="container mx-auto my-4 p-8 rounded-lg shadow-lg dark:bg-gray-800 dark:text-white bg-gray-100 text-black">
@@ -139,7 +116,6 @@ const handleEditSuccess = (updatedTodo: Todo) => {
                 <div className="text-blue-500 hover:underline">
                   <Edit
                     todo={todo}
-                    onEditSuccess={handleEditSuccess}
                   />
                 </div>
 
