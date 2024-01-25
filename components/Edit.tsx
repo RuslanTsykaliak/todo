@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 
 import { Todo } from "@/lib/types";
 import { Button } from "./ui/button";
-import { useTodos } from './TodosContext';
 
 interface EditProps {
   todo: Todo;
@@ -15,7 +14,6 @@ interface EditProps {
 }
 
 const Edit: React.FC<EditProps> = ({ todo, onEditSuccess }) => {
-  const { todos, setTodos } = useTodos();
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(todo.title);
   const [editedDescription, setEditedDescription] = useState(todo.description);
