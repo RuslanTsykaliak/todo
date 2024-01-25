@@ -4,7 +4,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-
 import { Todo } from "@/lib/types"
 import RemoveTodos from './RemoveTodos';
 import Search from "./Search";
@@ -17,21 +16,28 @@ const AllTodos: React.FC = () => {
   const [removedTodos, setRemovedTodos] = useState<number[]>([]);
   const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [editedTodos, setEditedTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await fetch("/api/getalltodos");
+        const response = await fetch("api/getalltodos");
         const allTodos = await response.json();
-        setTodos(allTodos);
-        setFilteredTodos(allTodos);
+
+        const updatedTodos = allTodos.data.map((todo: Todo) => {
+          const editedTodo = editedTodos.find((edited: Todo) => edited.id === todo.id);
+          return editedTodo || todo;
+        });
+
+        setTodos(updatedTodos);
+        setFilteredTodos(updatedTodos);
       } catch (error) {
         console.error("Error fetching todos:", error);
       }
     };
 
     fetchTodos();
-  }, []);
+  }, [editedTodos]);
 
   const handleRemoveSuccess = (removedTodoId: number) => {
     setRemovedTodos((prevRemovedTodos) => [...prevRemovedTodos, removedTodoId]);
@@ -40,9 +46,7 @@ const AllTodos: React.FC = () => {
     );
   };
 
-  const displayedTodos = isSearching
-    ? filteredTodos
-    : todos.filter((todo) => !removedTodos.includes(todo.id));
+  const displayedTodos = isSearching ? filteredTodos : todos.filter((todo) => !removedTodos.includes(todo.id));
 
   const handleSearch = (filteredTodos: Todo[]) => {
     setFilteredTodos(filteredTodos);
@@ -73,7 +77,11 @@ const AllTodos: React.FC = () => {
         setFilteredTodos(todos);
     }
   }, [todos]);
-
+const handleEditSuccess = (updatedTodo: Todo) => {
+  setTodos(prevTodos =>
+    prevTodos.map(t => (t.id === updatedTodo.id ? updatedTodo : t))
+  );
+};
 
   return (
     <div className="container mx-auto my-4 p-8 rounded-lg shadow-lg dark:bg-gray-800 dark:text-white bg-gray-100 text-black">
@@ -116,6 +124,7 @@ const AllTodos: React.FC = () => {
                 <div className="text-blue-500 hover:underline">
                   <Edit
                     todo={todo}
+                    onEditSuccess={handleEditSuccess}
                   />
                 </div>
 
