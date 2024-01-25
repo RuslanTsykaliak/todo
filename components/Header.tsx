@@ -18,7 +18,7 @@ function Header() {
           <Link href={`/`}>Todo List</Link>
         </h1>
         <div className="flex items-center flex-grow justify-end">
-          <Link href={`/add`} className="dark:hover:text-gray-300 uppercase">
+          <Link href={`/add`} className="dark:hover:text-gray-300 font-extrabold uppercase">
             Add Todo
           </Link>
         </div>
