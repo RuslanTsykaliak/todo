@@ -77,16 +77,11 @@ const AllTodos: React.FC = () => {
         setFilteredTodos(todos);
     }
   }, [todos]);
-
 const handleEditSuccess = (updatedTodo: Todo) => {
-  setEditedTodos((prevEditedTodos: Todo[]) =>
-    prevEditedTodos.map((t: Todo) => (t.id === updatedTodo.id ? updatedTodo : t))
+  setTodos(prevTodos =>
+    prevTodos.map(t => (t.id === updatedTodo.id ? updatedTodo : t))
   );
-
-  // Reset editedTodos after updating todos
-  setEditedTodos([]);
 };
-
 
   return (
     <div className="container mx-auto my-4 p-8 rounded-lg shadow-lg dark:bg-gray-800 dark:text-white bg-gray-100 text-black">
