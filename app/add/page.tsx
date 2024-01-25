@@ -4,12 +4,15 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import toast from 'react-hot-toast'
+import toast from "react-hot-toast"
+
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 
 export default function AddTodo() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState<number>(1); // (1)
+  const [priority, setPriority] = useState<number>(1);
 
   const router = useRouter();
 
@@ -53,7 +56,7 @@ export default function AddTodo() {
   return (
     <div className="container mx-auto my-8">
       <form onSubmit={handleSubmit}>
-        <label className="block mb-4">
+        <Label className="block mb-4">
           Title:
           <input
             type="text"
@@ -62,8 +65,8 @@ export default function AddTodo() {
             onChange={(e) => setTitle(e.target.value)}
             className="w-full mt-2 p-2 border rounded"
           />
-        </label>
-        <label className="block mb-4">
+        </Label>
+        <Label className="block mb-4">
           Description:
           <textarea
             name="description"
@@ -71,8 +74,8 @@ export default function AddTodo() {
             onChange={(e) => setDescription(e.target.value)}
             className="w-full mt-2 p-2 border rounded"
           ></textarea>
-        </label>
-        <label className="block mb-4">
+        </Label>
+        <Label className="block mb-4">
           Priority:
           <select
             name="priority"
@@ -86,13 +89,13 @@ export default function AddTodo() {
               </option>
             ))}
           </select>
-        </label>
-        <button
+        </Label>
+        <Button
           type="submit"
           className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-700 cursor-pointer"
         >
           Submit
-        </button>
+        </Button>
       </form>
     </div>
   );

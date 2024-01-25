@@ -21,19 +21,6 @@ model Todo {
   createdAt   DateTime @default(now())
 }
 
-// To filter tasks by status
-enum TodoStatus {
-  ALL
-  DONE
-  UNDONE
-}
-
-// To sort tasks by priority in ascending or descending order
-enum SortTodos {
-  ASC
-  DESC
-}
-
 model Post {
   id          Int      @id @default(autoincrement())
   title       String

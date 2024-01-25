@@ -1,7 +1,7 @@
-import React from "react";
+import Link from "next/link";
+
 import NextThemeProvider from "./ThemeProvider";
 import ThemeSwitch from "./ThemeSwitch";
-import Link from "next/link";
 
 
 function Header() {

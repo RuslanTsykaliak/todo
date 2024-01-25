@@ -17,10 +17,11 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
 
   return (
     <div className="mb-4">
-      <label className="mr-2 text-xl uppercase">Filter:</label>
+      <label htmlFor="filter" className="mr-2 text-xl uppercase">Filter:</label>
       <select
+        id="filter"
         value={selectedFilter}
-        onChange={(e) => setSelectedFilter(e.target.value)}
+        onChange={({ target: { value } }) => setSelectedFilter(value)}
         className="border p-2 rounded-md"
       >
         <option value="all">None</option>

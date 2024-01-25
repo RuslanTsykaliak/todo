@@ -4,10 +4,8 @@ import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function PUT(req: NextRequest) {
-  const { method } = req;
-
   try {
-    if (method === 'PUT') {
+    if (req.method === 'PUT') {
       return handlePut(req);
     } else {
       return handleMethodNotAllowed();

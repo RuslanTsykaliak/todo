@@ -6,8 +6,6 @@ import xss from "xss";
 
 export async function POST(req: Request) {
   const { title, description, priority } = await req.json();
-
-  // Sanitize title and description to prevent XSS attacks
   const sanitizedTitle = xss(title);
   const sanitizedDescription = xss(description);
 
@@ -32,23 +30,5 @@ export async function POST(req: Request) {
   } catch (error) {
     console.error(error);
     return NextResponse.json({ message: "Could not create todo." });
-  }
-}
-
-export async function GET() {
-  try {
-    const Todos = await prisma.todo.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-
-    return NextResponse.json(Todos);
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json(
-      { message: "Some error occurred" },
-      { status: 500 }
-    );
   }
 }

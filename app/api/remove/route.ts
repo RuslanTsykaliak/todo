@@ -48,7 +48,6 @@ export async function DELETE(req: NextRequest) {
     }
   } catch (e) {
     console.error(e);
-
     return NextResponse.json({
       success: false,
       message: "Something went wrong! Please try again",

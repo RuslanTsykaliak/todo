@@ -20,8 +20,6 @@ const AllTodos: React.FC = () => {
     const fetchTodos = async () => {
       try {
         const response = await fetch("api/getalltodos");
-        console.log("Server Response:", response);
-
         const allTodos = await response.json();
         setTodos(allTodos.data || []);
         setFilteredTodos(allTodos.data || []);

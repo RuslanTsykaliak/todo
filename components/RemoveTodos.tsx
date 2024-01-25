@@ -1,5 +1,7 @@
 // components/RemoveTodos.tsx
 
+import toast from "react-hot-toast";
+
 import { Todo } from "@/lib/types";
 
 interface RemoveTodosProps {
@@ -21,12 +23,12 @@ const RemoveTodos: React.FC<RemoveTodosProps> = (
       });
 
       if (response.ok) {
-        console.log("Todo removed successfully");
+        toast.success("Todo removed successfully");
         onRemoveSuccess();
-        
+
       } else {
         const errorData = await response.json();
-        console.error(`Failed to remove todo: ${errorData.message}`);
+        toast.error(`Failed to remove todo: ${errorData.message}`);
       }
     } catch (error) {
       console.error("An error occurred while removing todo:", error);
