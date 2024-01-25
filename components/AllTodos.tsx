@@ -13,6 +13,7 @@ import Edit from "./Edit";
 
 const AllTodos: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [removedTodos, setRemovedTodos] = useState<number[]>([]);
   const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
   const [isSearching, setIsSearching] = useState<boolean>(false);
 
@@ -32,11 +33,13 @@ const AllTodos: React.FC = () => {
   }, []);
 
   const handleRemoveSuccess = (removedTodoId: number) => {
-    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== removedTodoId));
+    setRemovedTodos((prevRemovedTodos) => [...prevRemovedTodos, removedTodoId]);
     setFilteredTodos((prevFilteredTodos) =>
       prevFilteredTodos.filter((todo) => todo.id !== removedTodoId)
     );
   };
+
+  const displayedTodos = isSearching ? filteredTodos : todos.filter((todo) => !removedTodos.includes(todo.id));
 
   const handleSearch = (filteredTodos: Todo[]) => {
     setFilteredTodos(filteredTodos);
@@ -92,7 +95,7 @@ const AllTodos: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {((isSearching ? filteredTodos : todos) || []).map((todo) => (
+        {displayedTodos.map((todo) => (
           <div key={todo.id} className="bg-white p-4 rounded-lg shadow-md mb-4 dark:bg-gray-700 dark:text-white">
             <div className="flex items-start justify-between mb-2">
               <h2 className="text-xl font-semibold">{todo.title}</h2>
