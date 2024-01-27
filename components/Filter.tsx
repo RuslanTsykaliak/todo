@@ -28,7 +28,7 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
         <option value="done">Done</option>
         <option value="undone">Undone</option>
         <option value="priority-high">Priority High</option>
-        <option value="priority-low">Priority High</option>
+        <option value="priority-low">Priority Low</option>
         <option value="newest">Newest</option>
         <option value="oldest">Oldest</option>
       </select>
