@@ -24,13 +24,12 @@ const Filter: React.FC<FilterProps> = ({ onFilterChange }) => {
         onChange={({ target: { value } }) => setSelectedFilter(value)}
         className="border p-2 rounded-md"
       >
-        <option value="all">None</option>
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
         <option value="done">Done</option>
         <option value="undone">Undone</option>
         <option value="priority-high">Priority High</option>
         <option value="priority-low">Priority Low</option>
-        <option value="newest">Newest</option>
-        <option value="oldest">Oldest</option>
       </select>
     </div>
   );
