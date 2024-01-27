@@ -21,9 +21,7 @@ const AllTodos: React.FC = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await fetch("/api/getalltodos", {
-        cache: "no-store",
-      });
+        const response = await fetch("/api/getalltodos");
         const allTodos = await response.json();
 
         const updatedTodos = allTodos.data.map((todo: Todo) => {
@@ -79,7 +77,7 @@ const AllTodos: React.FC = () => {
         setFilteredTodos(todos);
     }
   }, [todos]);
-  
+
   const handleEditSuccess = (editedTodo: Todo) => {
     setEditedTodos((prevEditedTodos) => [...prevEditedTodos, editedTodo]);
   };
@@ -114,8 +112,8 @@ const AllTodos: React.FC = () => {
                 }}
               />
 
+              <p className={`text-gray-700 mb-2 ${todo.description && 'dark:text-gray-300'}`}>{todo.description}</p>
             </div>
-            <p className={`text-gray-700 mb-2 ${todo.description && 'dark:text-gray-300'}`}>{todo.description}</p>
             <div className="flex justify-between items-end ">
               <p className={`text-${todo.priority}-500 font-bold`}>
                 Priority: {todo.priority}
