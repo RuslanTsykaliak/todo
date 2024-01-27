@@ -33,6 +33,7 @@ const AllTodos: React.FC = () => {
 
         setTodos(updatedTodos);
         setFilteredTodos(updatedTodos);
+        handleFilterChange("newest");
       } catch (error) {
         console.error("Error fetching todos:", error);
       }

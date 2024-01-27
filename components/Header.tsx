@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import NextThemeProvider from "./ThemeProvider";
 import ThemeSwitch from "./ThemeSwitch";
+import { revalidatePath } from "next/cache";
 
 
 function Header() {
@@ -15,7 +16,7 @@ function Header() {
           </NextThemeProvider>
         </div>
         <h1 className="text-2xl font-extrabold uppercase">
-          <Link href={`/`}>Todo List</Link>
+          <Link href={`/`} >Todo List</Link>
         </h1>
         <div className="flex items-center flex-grow justify-end">
           <Link href={`/add`} className="dark:hover:text-gray-300 font-extrabold uppercase">

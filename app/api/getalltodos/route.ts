@@ -3,6 +3,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 
+export const revalidate = 1
+
 export async function GET(request: NextRequest) {
   try {
     const getAllTodos = await prisma.todo.findMany();
