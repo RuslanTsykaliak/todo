@@ -112,8 +112,8 @@ const AllTodos: React.FC = () => {
                 }}
               />
 
-              <p className={`text-gray-700 mb-2 ${todo.description && 'dark:text-gray-300'}`}>{todo.description}</p>
             </div>
+            <p className={`text-gray-700 mb-2 ${todo.description && 'dark:text-gray-300'}`}>{todo.description}</p>
             <div className="flex justify-between items-end ">
               <p className={`text-${todo.priority}-500 font-bold`}>
                 Priority: {todo.priority}
