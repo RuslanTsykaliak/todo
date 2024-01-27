@@ -29,8 +29,12 @@ const AllTodos: React.FC = () => {
           return editedTodo || todo;
         });
 
+        updatedTodos.sort((a: Todo, b: Todo) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
         setTodos(updatedTodos);
         setFilteredTodos(updatedTodos);
+
+        handleFilterChange("newest");
       } catch (error) {
         console.error("Error fetching todos:", error);
       }
@@ -47,6 +51,7 @@ const AllTodos: React.FC = () => {
   };
 
   const displayedTodos = isSearching ? filteredTodos : todos.filter((todo) => !removedTodos.includes(todo.id));
+
 
   const handleSearch = (filteredTodos: Todo[]) => {
     setFilteredTodos(filteredTodos);
@@ -79,8 +84,19 @@ const AllTodos: React.FC = () => {
   }, [todos]);
 
   const handleEditSuccess = (editedTodo: Todo) => {
-    setEditedTodos((prevEditedTodos) => [...prevEditedTodos, editedTodo]);
+    setTodos((prevTodos) => {
+      const index = prevTodos.findIndex((todo) => todo.id === editedTodo.id);
+      if (index === -1) {
+        return [...prevTodos, editedTodo];
+      }
+      const updatedTodos = [...prevTodos];
+      updatedTodos[index] = editedTodo;
+
+      return updatedTodos;
+    });
   };
+
+
 
   return (
     <div className="container mx-auto my-4 p-8 rounded-lg shadow-lg dark:bg-gray-800 dark:text-white bg-gray-100 text-black">
