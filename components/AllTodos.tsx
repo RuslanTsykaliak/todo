@@ -21,7 +21,7 @@ const AllTodos: React.FC = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await fetch("api/getalltodos", {
+        const response = await fetch("/api/getalltodos", {
         cache: "no-store",
       });
         const allTodos = await response.json();
@@ -33,7 +33,6 @@ const AllTodos: React.FC = () => {
 
         setTodos(updatedTodos);
         setFilteredTodos(updatedTodos);
-        handleFilterChange("newest");
       } catch (error) {
         console.error("Error fetching todos:", error);
       }
