@@ -42,7 +42,7 @@ const AllTodos: React.FC = () => {
 
     fetchTodos();
 
-    const timeoutId = setTimeout(fetchTodos, 2000);
+    const timeoutId = setTimeout(fetchTodos, 1000);
     return () => clearTimeout(timeoutId);
   }, [editedTodos]);
 
