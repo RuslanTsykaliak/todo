@@ -3,7 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 
-export const revalidate = 0
+export const revalidate = 1 // was 0 second to update the data
 
 export async function GET(request: NextRequest) {
   try {

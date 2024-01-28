@@ -41,6 +41,12 @@ const AllTodos: React.FC = () => {
     };
 
     fetchTodos();
+
+    if ('/add') {
+      const timeoutId = setTimeout(fetchTodos, 1000);
+      return () => clearTimeout(timeoutId);
+    }
+  
   }, [editedTodos]);
 
   const handleRemoveSuccess = (removedTodoId: number) => {
