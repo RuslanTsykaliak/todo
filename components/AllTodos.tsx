@@ -19,19 +19,10 @@ const AllTodos: React.FC = () => {
   const [editedTodos, setEditedTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
-    let lastFetchedTodos:any = null;
-
     const fetchTodos = async () => {
       try {
         const response = await fetch("/api/getalltodos");
         const allTodos = await response.json();
-
-        // Check if the data has changed
-        if (JSON.stringify(allTodos) === JSON.stringify(lastFetchedTodos)) {
-          return;
-        }
-
-        lastFetchedTodos = allTodos;
 
         const updatedTodos = allTodos.data.map((todo: Todo) => {
           const editedTodo = editedTodos.find((edited: Todo) => edited.id === todo.id);
@@ -50,6 +41,9 @@ const AllTodos: React.FC = () => {
     };
 
     fetchTodos();
+
+    const timeoutId = setTimeout(fetchTodos, 2000);
+    return () => clearTimeout(timeoutId);
   }, [editedTodos]);
 
 
