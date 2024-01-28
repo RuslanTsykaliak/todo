@@ -44,7 +44,7 @@ export default function AddTodo() {
 
       if (res.ok) {
         toast.success("Post created successfully");
-        router.push("/");
+        router.push("/todos");
       } else {
         toast.error("Something went wrong.");
       }
