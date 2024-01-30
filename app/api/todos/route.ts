@@ -7,7 +7,7 @@ import prisma from '@/lib/prismadb';
 
 export async function POST(req: NextRequest) {
   const requestBody = await req.json();
-  const { title, description, priority } = requestBody;
+  const { title, description, priority, userId = null } = requestBody;
 
   try {
     const newTodo = await prisma.todo.create({
@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
         title,
         description,
         priority: Number(priority),
+        userId,
       },
     });
 
@@ -53,7 +54,7 @@ export async function GET(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   const requestBody = await req.json();
   if (req.method === 'PUT') {
-    const { id, title, description, priority } = requestBody;
+    const { id, title, description, priority, userId = null } = requestBody;
 
     try {
       const updatedTodo = await prisma.todo.update({
@@ -62,6 +63,7 @@ export async function PUT(req: NextRequest) {
           title,
           description,
           priority: Number(priority),
+          userId,
         },
       });
 

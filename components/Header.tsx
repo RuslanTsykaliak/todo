@@ -15,9 +15,13 @@ function Header() {
           </NextThemeProvider>
         </div>
         <h1 className="text-2xl font-extrabold uppercase">
-          <Link href={`/`}>Todo List</Link>
+          <Link href={`/`}>Todo List </Link>
+          <Link href={`/your`}>| Your Todos</Link>
         </h1>
         <div className="flex items-center flex-grow justify-end">
+          {/* <Link href={`/sign-up`}>Sign-UP</Link>
+          <Link href={`/sign-in`}>Sing-IN</Link> */}
+          
           <Link
             href={`/add`}
             className="dark:hover:text-gray-300 font-extrabold uppercase">
