@@ -1,59 +1,30 @@
 // api/completed/route.ts
 
-import prisma from "@/lib/db";
+import prisma from '@/lib/prismadb';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function PUT(req: NextRequest) {
-  try {
-    if (req.method === 'PUT') {
-      return handlePut(req);
-    } else {
-      return handleMethodNotAllowed();
-    }
-  } catch (error) {
-    console.error('Error updating todo:', error);
-    return handleInternalServerError();
-  }
-}
 
-async function handlePut(req: NextRequest) {
-  try {
-    const requestBody = await req.json();
+export async function PUT(req: NextRequest) {
+  const requestBody = await req.json();
+  if (req.method === 'PUT') {
     const { id, completed } = requestBody;
 
-    if (id === undefined) {
+    try {
+      const updatedTodo = await prisma.todo.update({
+        where: { id: Number(id) },
+      data: { completed },
+      });
+
+      if (updatedTodo) {
+        console.log({ message: 'Todo status successfully' });
+        return NextResponse.json(updatedTodo);
+      }
+    } catch (error) {
+      console.error('Error updating todo:', error);
       return NextResponse.json({
         success: false,
-        message: "Missing 'id' in the request body",
+        message: "Internal Server Error",
       });
     }
-
-    const updatedTodo = await prisma.todo.update({
-      where: { id: Number(id) },
-      data: { completed },
-    });
-
-    return handleSuccessResponse(updatedTodo);
-  } catch (error) {
-    console.error('Error updating todo:', error);
-    return handleInternalServerError();
   }
-}
-
-function handleSuccessResponse(data: any) {
-  return NextResponse.json(data);
-}
-
-function handleMethodNotAllowed() {
-  return NextResponse.json({
-    success: false,
-    message: "Method Not Allowed",
-  });
-}
-
-function handleInternalServerError() {
-  return NextResponse.json({
-    success: false,
-    message: "Internal Server Error",
-  });
 }

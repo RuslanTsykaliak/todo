@@ -1,13 +1,12 @@
-// add/page.tsx
+// add/page.tsx // need dark mode
 
 "use client"
 
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from "react-hot-toast"
-
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
 
 export default function AddTodo() {
   const [title, setTitle] = useState("");
@@ -28,7 +27,7 @@ export default function AddTodo() {
     try {
       console.log("Submitting form...");
 
-      const res = await fetch("/api/add", {
+      const res = await fetch("/api/todos", {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -44,7 +43,7 @@ export default function AddTodo() {
 
       if (res.ok) {
         toast.success("Post created successfully");
-        router.push("/todos");
+        router.push("/");
       } else {
         toast.error("Something went wrong.");
       }
@@ -83,7 +82,7 @@ export default function AddTodo() {
             onChange={(e) => setPriority(parseInt(e.target.value, 10))}
             className="w-full mt-2 p-2 border rounded"
           >
-            {[...Array(10).keys()].map((number) => (
+            {Array.from(Array(10).keys()).map((number) => (
               <option key={number + 1} value={number + 1}>
                 {number + 1}
               </option>

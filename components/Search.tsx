@@ -1,18 +1,18 @@
-// components/SearchComponent.tsx
+// components/Search.tsx
 
 "use client";
 
-
 import { useState, useEffect } from "react";
-import { Todo } from "@/lib/types";
+import { Todo } from "@prisma/client";
 
 interface SearchProps {
   todos: Todo[];
   onSearch: (filteredTodos: Todo[]) => void;
 }
 
-const Search: React.FC<SearchProps> = ({ todos, onSearch, }) => {
+const Search: React.FC<SearchProps> = ({ todos, onSearch }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [noResults, setNoResults] = useState<boolean>(false);
 
   useEffect(() => {
     if (searchQuery) {
@@ -20,8 +20,10 @@ const Search: React.FC<SearchProps> = ({ todos, onSearch, }) => {
         todo.title.toLowerCase().includes(searchQuery.toLowerCase())
       );
       onSearch(filteredTodos);
+      setNoResults(filteredTodos.length === 0);
     } else {
       onSearch(todos);
+      setNoResults(false);
     }
   }, [searchQuery, todos]);
 
@@ -40,6 +42,7 @@ const Search: React.FC<SearchProps> = ({ todos, onSearch, }) => {
           setSearchQuery(e.target.value)
         }
       />
+      {noResults && <p className="text-center text-bold text-3xl text-red-500 dark:text-red-400">No todos found</p>}
     </section>
   );
 }

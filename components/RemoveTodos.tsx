@@ -2,30 +2,36 @@
 
 import toast from "react-hot-toast";
 
-import { Todo } from "@/lib/types";
+import { Todo } from "@prisma/client";
 
 interface RemoveTodosProps {
   todo: Todo;
   onRemoveSuccess: () => void;
+  setTodos: (todos: Todo[]) => void;
 }
 
 const RemoveTodos: React.FC<RemoveTodosProps> = (
-  { todo, onRemoveSuccess }
+  { todo, onRemoveSuccess, setTodos }
 ) => {
   const handleRemoveClick = async (id: number) => {
     try {
-      const response = await fetch(`/api/remove`, {
+      const response = await fetch(`/api/todos`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ id }),
       });
-
+  
       if (response.ok) {
         toast.success("Todo removed successfully");
         onRemoveSuccess();
-
+  
+        // Fetch the updated list of todos from the server
+        const updatedTodosResponse = await fetch('/api/todos');
+        const updatedTodos = await updatedTodosResponse.json();
+        setTodos(updatedTodos);
+  
       } else {
         const errorData = await response.json();
         toast.error(`Failed to remove todo: ${errorData.message}`);
@@ -34,6 +40,7 @@ const RemoveTodos: React.FC<RemoveTodosProps> = (
       console.error("An error occurred while removing todo:", error);
     }
   };
+  
 
   return (
     <div>

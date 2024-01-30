@@ -14,7 +14,9 @@ import Filter from "@/components/Filter";
 export default function Home() {
   const [removedTodos, setRemovedTodos] = useState<number[]>([]);
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
   const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
+  const [filteredTodosForFilter, setFilteredTodosForFilter] = useState<Todo[]>([]);
   const [displayedTodos, setDisplayedTodos] = useState<Todo[]>([]);
 
   const fetchTodos = useFetchTodos();
@@ -22,7 +24,7 @@ export default function Home() {
   useEffect(() => {
     fetchTodos((fetchedTodos) => {
       setTodos(fetchedTodos);
-      setDisplayedTodos(fetchedTodos);
+      setDisplayedTodos(fetchedTodos); // Add this line
     });
   }, []);
 
@@ -61,7 +63,7 @@ export default function Home() {
         newFilteredTodos = todos;
     }
     setFilteredTodos(newFilteredTodos);
-    setDisplayedTodos(newFilteredTodos);
+    setDisplayedTodos(newFilteredTodos); // Update the displayedTodos state here
   }, [todos]);
 
 

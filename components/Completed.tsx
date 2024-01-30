@@ -1,7 +1,6 @@
 // components/Completed.tsx
 
-import React, { useState } from 'react';
-import { Button } from './ui/button';
+import { useState } from 'react';
 
 interface CompletedProps {
   todoId: number;
@@ -35,7 +34,7 @@ const Completed: React.FC<CompletedProps> = ({ todoId, completed, onToggleComple
   };
 
   return (
-    <Button
+    <button
       className={`text-white font-bold py-2 px-4 rounded ${!completed ?
         'bg-red-500 dark:bg-red-800'
         :
@@ -45,7 +44,7 @@ const Completed: React.FC<CompletedProps> = ({ todoId, completed, onToggleComple
       disabled={loading}
     >
       {loading ? 'Updating...' : !completed ? 'Incomplete' : 'Completed'}
-    </Button>
+    </button>
   );
 };
 

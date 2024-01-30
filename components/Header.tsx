@@ -3,7 +3,6 @@ import Link from "next/link";
 import NextThemeProvider from "./ThemeProvider";
 import ThemeSwitch from "./ThemeSwitch";
 
-
 function Header() {
 
   return (
@@ -16,7 +15,7 @@ function Header() {
           </NextThemeProvider>
         </div>
         <h1 className="text-2xl font-extrabold uppercase">
-          <Link href={`/todos`}>Todo List</Link>
+          <Link href={`/`}>Todo List</Link>
         </h1>
         <div className="flex items-center flex-grow justify-end">
           <Link
