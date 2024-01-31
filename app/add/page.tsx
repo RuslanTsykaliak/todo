@@ -4,10 +4,8 @@
 
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { getAuth } from '@clerk/nextjs/server';
 
-
-
+import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from "react-hot-toast"
@@ -16,8 +14,11 @@ export default function AddTodo() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState<number>(1);
-
+  
   const router = useRouter();
+  
+  // Get the userId from clerk
+const { user } = useUser();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,8 +29,6 @@ export default function AddTodo() {
       return;
     }
 
-      // Get the userId from clerk
-  const { userId } = getAuth();
 
     try {
       console.log("Submitting form...");
@@ -43,14 +42,14 @@ export default function AddTodo() {
           title,
           description,
           priority,
-          userId,
+          userId: user?.id,
         }),
       });
 
       console.log("Response from API:", res);
 
       if (res.ok) {
-        toast.success("Post created successfully");
+        toast.success("Todo created successfully");
         router.push("/");
       } else {
         toast.error("Something went wrong.");
