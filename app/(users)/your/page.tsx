@@ -37,7 +37,7 @@ export default function User() {
 
   return (
     <div className="h-screen">
-      <UserButton />
+      {/* <UserButton /> */}
       <div>
         Welcome to your personal Todos!
       </div>

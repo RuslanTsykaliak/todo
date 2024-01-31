@@ -2,6 +2,7 @@ import Link from "next/link";
 
 import NextThemeProvider from "./ThemeProvider";
 import ThemeSwitch from "./ThemeSwitch";
+import { UserButton } from "@clerk/nextjs";
 
 function Header() {
 
@@ -27,6 +28,9 @@ function Header() {
             className="dark:hover:text-gray-300 font-extrabold uppercase">
             Add Todo
           </Link>
+        <div className="items-end pl-4">
+          <UserButton />
+          </div>
         </div>
       </div>
     </div>
