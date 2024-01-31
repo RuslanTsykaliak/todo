@@ -6,7 +6,7 @@ import { Todo } from '@prisma/client';
 import { handleEdit } from './handleEdit';
 import { useUser } from '@clerk/nextjs';
 
-const Edit = ({ todo, setTodos }: { todo: Todo, setTodos: (todos: Todo[]) => void, user: string }) => {
+const Edit = ({ todo, setTodos }: { todo: Todo, setTodos: (todos: Todo[]) => void }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(todo.title);
   const [editedDescription, setEditedDescription] = useState(todo.description);
@@ -67,7 +67,11 @@ const Edit = ({ todo, setTodos }: { todo: Todo, setTodos: (todos: Todo[]) => voi
             </button>
 
             <button
-              onClick={() => handleEdit(todo.id, editedTitle, editedDescription, editedPriority, user.id, setIsEditing, setTodos)}
+              onClick={() => {
+                if (user) {
+                  handleEdit(todo.id, editedTitle, editedDescription, editedPriority, user.id, setIsEditing, setTodos)
+                }
+              }}
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800"
             >
               Save

@@ -1,7 +1,6 @@
 // components/RemoveTodos.tsx
 
 import toast from "react-hot-toast";
-
 import { Todo } from "@prisma/client";
 import { useUser } from "@clerk/nextjs";
 
@@ -25,20 +24,22 @@ const RemoveTodos: React.FC<RemoveTodosProps> = (
         },
         body: JSON.stringify({ id }),
       });
-  
+
       if (response.ok) {
         toast.success("Todo removed successfully");
         onRemoveSuccess();
 
-        const updatedTodosResponse = await fetch('/api/yourtodos', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'userId': user.id
-          },
-        });
-        const updatedTodos = await updatedTodosResponse.json();
-        setTodos(updatedTodos);
+        if (user) {
+          const updatedTodosResponse = await fetch('/api/yourtodos', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'userId': user.id
+            },
+          });
+          const updatedTodos = await updatedTodosResponse.json();
+          setTodos(updatedTodos);
+        }
       } else {
         const errorData = await response.json();
         toast.error(`Failed to remove todo: ${errorData.message}`);
@@ -47,7 +48,7 @@ const RemoveTodos: React.FC<RemoveTodosProps> = (
       console.error("An error occurred while removing todo:", error);
     }
   };
-  
+
 
   return (
     <div>
