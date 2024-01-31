@@ -1,3 +1,5 @@
+// api/yourtodos/route.ts
+
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prismadb";
 
@@ -5,9 +7,7 @@ import prisma from "@/lib/prismadb";
 export async function GET(req: NextRequest) {
   try {
     const userId = req.headers.get('userId');
-
     let todos;
-
     if (userId) {
       todos = await prisma.todo.findMany({
         where: {

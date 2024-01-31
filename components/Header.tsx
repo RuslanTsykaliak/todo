@@ -16,7 +16,7 @@ function Header() {
           </NextThemeProvider>
         </div>
         <h1 className="text-2xl font-extrabold uppercase">
-          <Link href={`/`}>Todo List </Link>
+          <Link href={`/`}>Public Todos </Link>
           <Link href={`/your`}>| Your Todos</Link>
         </h1>
         <div className="flex items-center flex-grow justify-end">

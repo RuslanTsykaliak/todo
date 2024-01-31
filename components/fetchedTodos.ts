@@ -43,26 +43,3 @@ export const useFetchYourTodos = () => {
 
   return fetchYourTodos;
 };
-
-
-// export const useFetchYourTodos = () => {
-//   const { user } = useUser();
-//   const userId = user?.id;
-
-//   const fetchYourTodos = useCallback(async (setTodos: React.Dispatch<React.SetStateAction<Todo[]>>) => {
-//     if (userId) {
-//       const response = await fetch('/api/todos', {
-//         method: 'GET',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//       });
-
-//       let fetchedYourTodos = await response.json();
-
-//       setTodos(fetchedYourTodos);
-//     }
-//   }, [userId]);
-
-//   return fetchYourTodos;
-// };
