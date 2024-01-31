@@ -23,7 +23,7 @@ function Header() {
         <div className="flex items-center flex-grow justify-end">
           <Link
             href={`/add`}
-            className="text-md sm:text-lg dark:hover:text-blue-300 font-extrabold uppercase tracking-wide">
+            className="text-md sm:text-lg hover:text-blue-500  dark:hover:text-blue-300 font-extrabold uppercase tracking-wide">
             Add Todo
           </Link>
           <div className="items-end pl-4">
