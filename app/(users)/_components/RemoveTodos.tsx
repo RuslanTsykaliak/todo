@@ -30,7 +30,6 @@ const RemoveTodos: React.FC<RemoveTodosProps> = (
         toast.success("Todo removed successfully");
         onRemoveSuccess();
 
-        // Fetch the updated list of todos from the server
         const updatedTodosResponse = await fetch('/api/yourtodos', {
           method: 'GET',
           headers: {

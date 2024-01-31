@@ -16,7 +16,7 @@ export async function PUT(req: NextRequest) {
       });
 
       if (updatedTodo) {
-        console.log({ message: 'Todo status successfully' });
+        // console.log({ message: 'Todo status successfully' });
         return NextResponse.json(updatedTodo);
       }
     } catch (error) {

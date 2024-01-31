@@ -14,11 +14,11 @@ export default function AddTodo() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState<number>(1);
-  
+
   const router = useRouter();
-  
+
   // Get the userId from clerk
-const { user } = useUser();
+  const { user } = useUser();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ const { user } = useUser();
 
 
     try {
-      console.log("Submitting form...");
+      // console.log("Submitting form...");
 
       const res = await fetch("/api/todos", {
         method: "POST",
@@ -46,9 +46,13 @@ const { user } = useUser();
         }),
       });
 
-      console.log("Response from API:", res);
+      // console.log("Response from API:", res);
 
-      if (res.ok) {
+      if (res.ok && user) {
+        toast.success("Todo created successfully");
+        router.push("/your");
+
+      } else if (res.ok && !user) {
         toast.success("Todo created successfully");
         router.push("/");
       } else {
