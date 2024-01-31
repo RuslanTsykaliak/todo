@@ -3,8 +3,8 @@
 
 import { useCallback, useEffect, useState } from "react";
 
-import Edit from "@/components/Edit";
-import RemoveTodos from "@/components/RemoveTodos";
+import Edit from "../_components/Edit";
+import RemoveTodos from "../_components/RemoveTodos";
 import Completed from "@/components/Completed";
 import { useFetchYourTodos } from "@/components/fetchedTodos";
 import { Todo } from "@prisma/client";
