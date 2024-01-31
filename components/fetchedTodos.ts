@@ -25,12 +25,16 @@ export const useFetchTodos = () => {
 export const useFetchYourTodos = () => {
   const { user } = useUser();
   const fetchYourTodos = async (setTodos: React.Dispatch<React.SetStateAction<Todo[]>>) => {
+    if (!user) {
+      // console.log("Fetch failed")
+      return;
+    }
+
     const headers: { [key: string]: string } = {
       'Content-Type': 'application/json',
+      'userId': user.id,
     };
-    if (user) {
-      headers['userId'] = user.id;
-    }
+
     const response = await fetch('/api/yourtodos', {
       method: 'GET',
       headers: headers,
@@ -40,6 +44,6 @@ export const useFetchYourTodos = () => {
 
     setTodos(fetchedYourTodos);
   };
-
+  // console.log("Fetch successful")
   return fetchYourTodos;
 };

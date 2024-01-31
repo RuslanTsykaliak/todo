@@ -1,7 +1,9 @@
 // app/your/page.tsx
+
+
 'use client'
 
-import { useCallback, useEffect, useState } from "react";
+import { SetStateAction, useCallback, useEffect, useState } from "react";
 
 import Edit from "../_components/Edit";
 import RemoveTodos from "../_components/RemoveTodos";
@@ -10,6 +12,7 @@ import { useFetchYourTodos } from "@/components/fetchedTodos";
 import { Todo } from "@prisma/client";
 import Search from "@/components/Search";
 import Filter from "@/components/Filter";
+import { useUser } from "@clerk/nextjs";
 
 export default function YourTodos() {
   const [removedTodos, setRemovedTodos] = useState<number[]>([]);
@@ -18,13 +21,16 @@ export default function YourTodos() {
   const [displayedTodos, setDisplayedTodos] = useState<Todo[]>([]);
 
   const fetchYourTodos = useFetchYourTodos();
+  const { user } = useUser();
 
   useEffect(() => {
-    fetchYourTodos((fetchedYourTodos) => {
-      setTodos(fetchedYourTodos);
-      setDisplayedTodos(fetchedYourTodos);
-    });
-  }, []);
+    if (user) {
+      fetchYourTodos((fetchedYourTodos: SetStateAction<Todo[]>) => {
+        setTodos(fetchedYourTodos);
+        setDisplayedTodos(fetchedYourTodos);
+      });
+    }
+  }, [user]);
 
 
   const handleRemoveSuccess = (removedTodoId: number) => {
@@ -103,8 +109,8 @@ export default function YourTodos() {
                   <div className="text-blue-500 hover:underline">
                     <Edit
                       todo={todo}
-                      setTodos={setTodos}
-                    />
+                      setTodos={setTodos} 
+                      />
                   </div>
                   <RemoveTodos
                     todo={todo}

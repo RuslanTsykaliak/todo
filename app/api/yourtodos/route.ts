@@ -6,18 +6,19 @@ import prisma from "@/lib/prismadb";
 
 export async function GET(req: NextRequest) {
   try {
+    // Get the userId from the request headers
     const userId = req.headers.get('userId');
-    let todos;
-    if (userId) {
-      todos = await prisma.todo.findMany({
-        where: {
-          userId: String(userId),
-        },
-        orderBy: {
-          createdAt: 'desc'
-        }
-      });
-    }
+
+    // Fetch todos where the userId matches the one from the request
+    const todos = await prisma.todo.findMany({
+      where: {
+        userId: userId
+      },
+      orderBy: {
+        createdAt: 'desc'
+      }
+    });
+
     return NextResponse.json(todos);
   } catch (error) {
     console.error('Error fetching todos:', error);

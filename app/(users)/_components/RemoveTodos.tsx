@@ -3,6 +3,7 @@
 import toast from "react-hot-toast";
 
 import { Todo } from "@prisma/client";
+import { useUser } from "@clerk/nextjs";
 
 interface RemoveTodosProps {
   todo: Todo;
@@ -13,6 +14,8 @@ interface RemoveTodosProps {
 const RemoveTodos: React.FC<RemoveTodosProps> = (
   { todo, onRemoveSuccess, setTodos }
 ) => {
+  const { user } = useUser();
+
   const handleRemoveClick = async (id: number) => {
     try {
       const response = await fetch(`/api/todos`, {
@@ -26,12 +29,17 @@ const RemoveTodos: React.FC<RemoveTodosProps> = (
       if (response.ok) {
         toast.success("Todo removed successfully");
         onRemoveSuccess();
-  
+
         // Fetch the updated list of todos from the server
-        const updatedTodosResponse = await fetch('/api/yourtodos');
+        const updatedTodosResponse = await fetch('/api/yourtodos', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'userId': user.id
+          },
+        });
         const updatedTodos = await updatedTodosResponse.json();
         setTodos(updatedTodos);
-  
       } else {
         const errorData = await response.json();
         toast.error(`Failed to remove todo: ${errorData.message}`);
