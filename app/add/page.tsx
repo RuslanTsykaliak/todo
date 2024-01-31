@@ -2,16 +2,15 @@
 
 "use client"
 
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { getAuth } from '@clerk/nextjs/server';
+
+
+
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from "react-hot-toast"
-
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { userId } from '../(users)/_components/user';
-
-
-
 
 export default function AddTodo() {
   const [title, setTitle] = useState("");
@@ -19,9 +18,6 @@ export default function AddTodo() {
   const [priority, setPriority] = useState<number>(1);
 
   const router = useRouter();
-
-  const user = userId;
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,7 +28,8 @@ export default function AddTodo() {
       return;
     }
 
-
+      // Get the userId from clerk
+  const { userId } = getAuth();
 
     try {
       console.log("Submitting form...");
