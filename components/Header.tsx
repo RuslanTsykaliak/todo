@@ -16,13 +16,13 @@ function Header() {
           </NextThemeProvider>
         </div>
         <div className="flex flex-col md:flex-row justify-center items-start md:items-center w-full md:w-auto">
-          <h1 className="text-xl md:text-3xl font-extrabold uppercase tracking-wide hover:text-blue-500 ml-1 md:ml-2">
-            <Link href={`/your`}>Your Todos</Link>
-          </h1>
           <h1 className="text-xl md:text-3xl font-extrabold uppercase tracking-wide 
           text-blue-400 dark:text-blue-300
           md:mr-2">
             <Link href={`/`}>Public Todos</Link>
+          </h1>
+          <h1 className="text-xl md:text-3xl font-extrabold uppercase tracking-wide hover:text-blue-500 ml-1 md:ml-2">
+            <Link href={`/your`}>Your Todos</Link>
           </h1>
         </div>
         <div className="flex justify-end items-center w-full md:w-auto mt-4 md:mt-0">
