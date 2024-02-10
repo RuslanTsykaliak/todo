@@ -2,6 +2,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from "react";
+import { useOptimistic } from "react";
 
 import Edit from "@/components/Edit";
 import RemoveTodos from "@/components/RemoveTodos";
@@ -16,6 +17,13 @@ export default function Home() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
   const [displayedTodos, setDisplayedTodos] = useState<Todo[]>([]);
+
+  const [optimisticTodos, addOptimisticTodos] = useOptimistic(
+    displayedTodos,
+    (state, newTodo: Todo) => {
+      return [...state, newTodo];
+    }
+  )
 
   const fetchTodos = useFetchTodos();
 
@@ -80,7 +88,7 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {displayedTodos.map((todo) => (
+          {optimisticTodos.map((todo) => (
             <div key={todo.id} className="bg-white p-4 rounded-lg shadow-md mb-4 dark:bg-gray-700 dark:text-white">
               <div className="flex items-start justify-between mb-2">
                 <h2 className="text-xl font-semibold">{todo.title}</h2>
